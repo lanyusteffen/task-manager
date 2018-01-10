@@ -28,9 +28,9 @@
           <div class="widget-content">
               <p>今日新增日志{{logs?.length}}</p>
               <ul>
-                  <ng-template ngFor let-log [ngForOf]="logs" 
-                        let-i="index" [ngForTrackBy]="traceByLog">
-                    <li *ngIf="i < 5">
+                  <ng-template ngFor let-log [ngForOf]="logs" let-i="index" 
+                    [ngForTrackBy]="traceByLog">
+                    <li *ngIf="i < 3">
                             {{log.body}}
                     </li>
                  </ng-template>
@@ -47,8 +47,8 @@
           <div class="widget-content">
               <p>今日新增预警{{warnings?.length}}</p>
               <ul>
-                <ng-template ngFor let-warning [ngForOf]="warnings" 
-                        let-i="index" [ngForTrackBy]="traceByWarning">
+                <ng-template ngFor let-warning [ngForOf]="warnings" let-i="index"
+                    [ngForTrackBy]="traceByWarning">
                   <li *ngIf="i < 5">
                         {{warning.warningReason}}
                   </li>
@@ -56,6 +56,26 @@
               </ul>
           </div>
       </li>
+  </ul>
+
+  <ul id="column3" class="column">
+    <li class="widget">  
+        <div class="btn-group" dropdown>
+            <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+                {{intervalDescription}} <span class="caret"></span>
+            </button>
+            <ul *dropdownMenu class="dropdown-menu" role="menu">
+                <li role="menuitem"><a class="dropdown-item"
+                    (click)="changeInterval(5)">5秒</a></li>
+                <li role="menuitem"><a class="dropdown-item"
+                    (click)="changeInterval(30)">30秒</a></li>
+                <li role="menuitem"><a class="dropdown-item"
+                    (click)="changeInterval(60)">1分钟</a></li>
+                <li role="menuitem"><a class="dropdown-item"
+                    (click)="changeInterval(300)">5分钟</a></li>
+            </ul>
+        </div>
+    </li>
   </ul>
 
 </div>
