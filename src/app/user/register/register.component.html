@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="inner">
+    <alert type="info" style="width: 100px">
+        {{messages[index]}}
+    </alert>
+  </div> 
+  <div class="inner">
+    <form [formGroup]="registerForm" class="form-signin" (ngSubmit)="register(registerForm.value, registerForm.valid)">
+      <label class="sr-only" for="passport">账号: </label>
+      <input type="text" placeholder="账号" name="passport" class="form-control" formControlName="passport"
+        required autofocus />
+      <small [hidden]="registerForm.controls.passport.valid || 
+        (registerForm.controls.passport.pristine && !submitted)">
+          账户信息必填 (至少6个字符, 最多20个字符[a-zA-Z0-9_])
+      </small>
+      <div style="margin:20px 0">
+        <label class="sr-only" for="password">密码: </label>
+        <input type="text" type="password" name="password" placeholder="密码"
+          formControlName="password" class="form-control" required />
+        <small [hidden]="registerForm.controls.password.valid || 
+          (registerForm.controls.password.pristine && !submitted)">
+            密码必填 (至少6个字符, 最多16个字符[a-zA-Z0-9_])
+        </small>
+      </div>
+      <div style="margin:20px 0">
+        <label class="sr-only" for="nickName">昵称: </label>
+        <input type="text" placeholder="昵称" name="nickName" class="form-control" 
+          formControlName="nickName" />
+      </div>
+      <div style="margin:20px 0">
+        <label class="sr-only" for="firstName">姓: </label>
+        <input type="text" placeholder="姓" name="firstName" class="form-control" 
+          formControlName="firstName" />
+      </div>
+      <div style="margin:20px 0">
+        <label class="sr-only" for="lastName">名: </label>
+        <input type="text" placeholder="名" name="lastName" class="form-control" 
+        formControlName="lastName" />
+      </div>
+      <button type="submit" class="btn btn-primary" 
+        [disabled]="!registerForm.controls.passport.valid ||
+        !registerForm.controls.password.valid">注册</button>
+    </form>
+   <!--  <div *ngFor="let event of events">
+        <pre> {{ event | json }} </pre>
+    </div> -->
+  </div>
+</div>
+

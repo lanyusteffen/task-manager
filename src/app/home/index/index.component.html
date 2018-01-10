@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="/home">任务管理中心</a>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a routerLink="./logging" class="nav-link">日志管理</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="./monitor" class="nav-link">监控管理</a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="./warning" class="nav-link">预警管理</a>
+          </li>
+      </ul>
+    </div>
+  </nav>
+  <main role="main" class="container">
+    <div class="starter-template">
+        <router-outlet></router-outlet>
+    </div>
+  </main>

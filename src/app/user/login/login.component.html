@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="inner">
+    <alert type="info" style="width: 100px">
+        {{messages[index]}}
+    </alert>
+  </div> 
+  <div class="inner">
+    <form [formGroup]="loginForm" class="form-signin" (ngSubmit)="login(loginForm.value, loginForm.valid)">
+      <label for="passport" class="sr-only">账号</label>
+      <input type="passport" name="passport" class="form-control" 
+        formControlName="passport" placeholder="账号" required autofocus />
+      <small [hidden]="loginForm.controls.passport.valid || 
+        (loginForm.controls.passport.pristine && !submitted)">
+          账户信息必填 (至少6个字符, 最多20个字符[a-zA-Z0-9_])
+      </small>
+      <div style="margin:20px 0;">
+        <label for="password"  class="sr-only">密码</label>
+        <input type="password" name="password" placeholder="密码"
+          formControlName="password" class="form-control" required />
+        <small [hidden]="loginForm.controls.password.valid || 
+          (loginForm.controls.password.pristine && !submitted)">
+            密码必填 (至少6个字符, 最多16个字符[a-zA-Z0-9_])
+        </small>
+      </div>
+      <button type="submit" style="margin-top:20px;" class="btn btn-lg btn-primary btn-block" 
+        [disabled]="!loginForm.controls.passport.valid ||
+        !loginForm.controls.password.valid">登录</button>
+        <label style="font-size: 9px;">
+          <input type="checkbox" name="rememberMe" formControlName="rememberMe" />记住我
+        </label>
+    </form>
+   <!--  <div *ngFor="let event of events">
+        <pre> {{ event | json }} </pre>
+    </div> -->
+  </div>
+</div>
+

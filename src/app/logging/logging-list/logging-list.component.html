@@ -1,0 +1,38 @@
+<div>
+  <ngx-datatable class="material"
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="'auto'"
+    [rows]="logCollects"
+    [externalPaging]="true"
+    [count]="page.totalElements"
+    [offset]="page.pageNumber"
+    [limit]="page.size"
+    (select)="onSelect($event)"
+    [selectionType]="'single'"
+    (page)='setPage($event)'>
+    <ngx-datatable-column name="服务标识">
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{row['serviceIdentity']}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="日志等级">
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{row['level']}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column [width]="600" name="日志内容">
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{row['body']}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="生成时间">
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{row['logTime'] | date: 'yyyy-MM-dd HH:mm:ss'}}
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>
+<app-logging-detail #childModal [title]="'日志详情'"> 
+</app-logging-detail> 

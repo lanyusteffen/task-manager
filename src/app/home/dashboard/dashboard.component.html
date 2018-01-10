@@ -1,0 +1,61 @@
+<div id="columns">
+  
+  <ul id="column1" class="column">
+      <li class="widget color-green" routerLink="../monitor">
+          <div class="widget-head">
+              <h6>监控管理</h6>
+          </div>
+          <div class="widget-content">
+              <p>心跳异常任务数量{{tasks?.length}}</p>
+              <ul>
+                  <ng-template ngFor let-task [ngForOf]="tasks" 
+                        let-i="index" [ngForTrackBy]="trackByTask">
+                    <li *ngIf="i < 5">
+                        {{task.serviceIdentity}}最后心跳检测成功时间
+                        {{task.lastHeartbeatTime | date: 'yyyy-MM-dd HH:mm:ss'}}
+                    </li>
+                 </ng-template>
+              </ul>
+          </div>
+      </li>
+  </ul>
+
+  <ul id="column2" class="column">
+      <li class="widget color-blue" routerLink="../logging">  
+          <div class="widget-head">
+              <h6>日志管理</h6>
+          </div>
+          <div class="widget-content">
+              <p>今日新增日志{{logs?.length}}</p>
+              <ul>
+                  <ng-template ngFor let-log [ngForOf]="logs" 
+                        let-i="index" [ngForTrackBy]="traceByLog">
+                    <li *ngIf="i < 5">
+                            {{log.body}}
+                    </li>
+                 </ng-template>
+              </ul>
+          </div>
+      </li>
+  </ul>
+  
+  <ul id="column3" class="column">
+      <li class="widget color-orange" routerLink="../warning">  
+          <div class="widget-head">
+              <h6>预警管理</h6>
+          </div>
+          <div class="widget-content">
+              <p>今日新增预警{{warnings?.length}}</p>
+              <ul>
+                <ng-template ngFor let-warning [ngForOf]="warnings" 
+                        let-i="index" [ngForTrackBy]="traceByWarning">
+                  <li *ngIf="i < 5">
+                        {{warning.warningReason}}
+                  </li>
+                </ng-template>
+              </ul>
+          </div>
+      </li>
+  </ul>
+
+</div>

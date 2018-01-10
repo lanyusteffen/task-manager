@@ -1,0 +1,81 @@
+<form class="form-horizontal">
+  <div class="form-group">
+    <label class="control-label col-sm-2">任务标识:</label>
+    <div class="col-sm-10">
+      <p class="form-control-static">
+        {{taskMonitor.serviceIdentity}}
+      </p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">任务状态:</label>
+    <div class="col-sm-10">
+      <p class="form-control-static">{{taskMonitor.taskVeto?"终止运行":"正常运行"}}</p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">心跳地址:</label>
+    <div class="col-sm-10">
+      <p class="form-control-static">{{taskMonitor.heartbeatUrl}}</p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">心跳检测状态:</label>
+    <div class="col-sm-10">
+      <p class="form-control-static">{{taskMonitor.heartbeatBreak?"心跳异常":"正常运行"}}</p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-4">最后一次心跳检测成功时间:</label>
+    <div class="col-sm-10">
+      <p class="form-control-static">
+        {{taskMonitor.lastHeartbeatTime | date: 'yyyy-MM-dd HH:mm:ss'}}
+      </p>
+    </div>
+  </div>
+</form>
+<div class="form-group">
+  <label class="control-label col-sm-4">作业列表:</label>
+  <div class="col-sm-14">
+    <ngx-datatable class="material"
+      [columnMode]="'force'"
+      [headerHeight]="50"
+      [footerHeight]="0"
+      [rowHeight]="'auto'"
+      [rows]="jobMonitors">
+      <ngx-datatable-column [width]="400" name="作业名称">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          {{row['jobName']}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column  name="作业组别">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            {{row['jobGroup']}}
+          </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="作业状态">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          {{row['jobVeto'] ? "终止" : "运行中"}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="操作">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <button
+            (click)="doJobBreaker($event, row)">{{row['jobVeto'] ? '启用' : '终止'}}</button>
+          <button
+            type="button"
+            popover="调用次数: {{row['firedTimes']}}
+                     错过执行次数: {{row['missfireTimes']}}
+                     调度作业最后一次执行时间: {{row['jobFiredLastTime'] | date: 'yyyy-MM-dd HH:mm:ss'}}
+                     调度作业最后一次执行成功时间: {{row['jobCompletedLastTime'] | date: 'yyyy-MM-dd HH:mm:ss'}}
+                     调度作业最后一次执行失败时间: {{row['jobMissfiredLastTime'] | date: 'yyyy-MM-dd HH:mm:ss'}}"
+            popoverTitle="作业调用统计"
+            triggers="mouseenter:mouseleave"
+            placement="left"
+            container="body">
+            统计</button>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+</div>

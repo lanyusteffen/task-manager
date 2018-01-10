@@ -1,0 +1,42 @@
+<ngx-datatable class="material"
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="'auto'"
+    [rows]="taskWarnings"
+    [externalPaging]="true"
+    [count]="page.totalElements"
+    [offset]="page.pageNumber"
+    [limit]="page.size"
+    (select)="onSelect($event)"
+    [selectionType]="'single'"
+    (page)='setPage($event)'>
+    <ngx-datatable-column name="服务标识">
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{row['serviceIdentity']}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="作业组别">
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{row['jobGroup']}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="作业名">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          {{row['jobName']}}
+        </ng-template>
+      </ngx-datatable-column>
+    <ngx-datatable-column [width]="600" name="预警原因">
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{row['warningReason']}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="添加时间">
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{row['addTime'] | date: 'yyyy-MM-dd HH:mm:ss'}}
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+  <app-warning-detail #childModal [title]="'预警详情'"> 
+  </app-warning-detail> 
+

@@ -1,0 +1,43 @@
+<ngx-datatable class="material"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [rows]="taskMonitors"
+  [externalPaging]="true"
+  [count]="page.totalElements"
+  [offset]="page.pageNumber"
+  [limit]="page.size"
+  (select)="onSelect($event)"
+  [selectionType]="'single'"
+  (page)='setPage($event)'>
+  <ngx-datatable-column name="服务标识">
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{row['serviceIdentity']}}
+      </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="服务状态">
+    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+      {{row['taskVeto'] ? "终止" : "运行中"}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="心跳状态">
+    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+      {{row['heartbeatBreak'] ? "心跳异常" : "正常"}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="上次心跳检测时间">
+    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+      {{row['lastHeartbeatTime'] | date: 'yyyy-MM-dd HH:mm:ss'}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="操作">
+    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+      <button 
+        (click)="doTaskBreaker($event, row)">{{row['taskVeto'] ? '启用' : '终止'}}</button>
+      <button
+        (click)="doHeartbeat($event, row)">心跳检测</button>
+    </ng-template>
+  </ngx-datatable-column>
+</ngx-datatable>
+
