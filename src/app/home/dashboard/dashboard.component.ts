@@ -42,6 +42,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private refreshDashboard() {
     this.http.get('/heartbeat/getDashBoard', result => {
+      setTimeout(() => {
+        this.startTimer();
+      }, this.refreshInterval);
       if (result) {
         this.tasks = result;
       }
@@ -72,9 +75,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.refreshDashboard();
-    setTimeout(() => {
-      this.startTimer();
-    }, this.refreshInterval);
   }
 
   ngOnDestroy() {
