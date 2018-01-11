@@ -5,8 +5,7 @@ import { Headers } from '@angular/http';
 import { LocalStorage, SessionStorage } from 'ngx-webstorage';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/catch';
-
-const BASE_API_URL = 'http://10.9.41.43:8080';
+import * as settings from "../../assets/appsettings.json";
 
 @Injectable()
 export class HttpUtilityService {
@@ -20,8 +19,7 @@ export class HttpUtilityService {
     @LocalStorage()
     refreshPersistenceToken: string;
 
-    constructor(private http: Http, private router: Router) {
-    }
+    constructor(private http: Http, private router: Router) { }
 
     private addJsonRequestHeader(withRefreshToken: boolean): RequestOptions {
         const headers = new Headers({'Content-Type': 'application/json',
@@ -43,7 +41,7 @@ export class HttpUtilityService {
         if (url.startsWith('http')) {
             return url;
         }
-        return BASE_API_URL + url;
+        return (<any>settings).BaseApiUrl + url;
     }
 
     public safePost(url: string, postData: any,

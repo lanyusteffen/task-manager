@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpUtilityService } from '../../shared/http.service';
+import * as settings from "../../../assets/appsettings.json";
 
 @Component({
   selector: 'app-dashboard',
@@ -8,8 +9,10 @@ import { HttpUtilityService } from '../../shared/http.service';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  private refreshInterval: number;
+  private refreshInterval = 5;
   public intervalDescription = '刷新时间5秒';
+  private refreshing = false;
+  private autoRefreshBlockCount = 0;
 
   tasks: any[];
   warnings: any[];
@@ -19,7 +22,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   changeInterval(seconds: number) {
     this.refreshInterval = seconds;
-    if (seconds > 60) {
+    if (seconds >= 60) {
       this.intervalDescription = '刷新时间' + (seconds / 60) + '分';
     } else {
       this.intervalDescription = '刷新时间' + seconds + '秒';
@@ -41,10 +44,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private refreshDashboard() {
+    this.refreshing = false;
     this.http.get('/heartbeat/getDashBoard', result => {
-      setTimeout(() => {
-        this.startTimer();
-      }, this.refreshInterval);
       if (result) {
         this.tasks = result;
       }
@@ -56,6 +57,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           if (result2) {
             this.warnings = result2;
           }
+          this.refreshing = true;
         });
       });
     });
@@ -63,8 +65,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private startTimer() {
     this.timer = setInterval(() => {
-      this.refreshDashboard();
-    }, this.refreshInterval);
+      if (this.refreshing) {
+        this.refreshDashboard();
+      } else {
+        ++this.autoRefreshBlockCount;
+      }
+      if (this.autoRefreshBlockCount > (<any>settings).MaxAutoRefreshBlockCount) {
+        this.stopTimer();
+      }
+    }, this.refreshInterval * 1000);
   }
 
   private stopTimer() {
@@ -75,6 +84,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.refreshDashboard();
+    setTimeout(() => {
+      this.startTimer();
+    }, this.refreshInterval * 1000);
   }
 
   ngOnDestroy() {
