@@ -11,3 +11,6 @@ dist/index.html
 dist/inline.231e6ea2a0a14d44108a.bundle.js
 dist/main.3190a6b5134efaa65f8b.bundle.js
 dist/polyfills.1bf15fecb58ff6226141.bundle.js
+dist/assets/appsettings.json
+dist/main.eef52833700a694e39df.bundle.js
+dist/inline.fc6e357f7f84e9865636.bundle.js
