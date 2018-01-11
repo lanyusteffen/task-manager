@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public intervalDescription = '刷新时间5秒';
   private refreshing = false;
   private autoRefreshBlockCount = 0;
+  private maxAutoRefreshBlockCount = (<any>settings).MaxAutoRefreshBlockCount;
 
   tasks: any[];
   warnings: any[];
@@ -27,6 +28,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     } else {
       this.intervalDescription = '刷新时间' + seconds + '秒';
     }
+    this.stopTimer();
+    this.startTimer();
   }
 
   constructor(private http: HttpUtilityService) { }
@@ -70,7 +73,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       } else {
         ++this.autoRefreshBlockCount;
       }
-      if (this.autoRefreshBlockCount > (<any>settings).MaxAutoRefreshBlockCount) {
+      if (this.autoRefreshBlockCount > this.maxAutoRefreshBlockCount) {
         this.stopTimer();
       }
     }, this.refreshInterval * 1000);
