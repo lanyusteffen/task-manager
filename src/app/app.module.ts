@@ -7,6 +7,8 @@ import { PageNotFoundComponent } from './shared/not-found.component';
 import { AppRoutingModule } from './app-router.module';
 import { AuthGuard } from './shared/auth-guard.service';
 import { AuthService } from './shared/auth.service';
+import { SharedModule } from './shared/shared.module';
+import { SimplifyTransformPipe } from './pipe/simplify-transform.pipe';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,7 @@ import { AuthService } from './shared/auth.service';
     BrowserModule,
     HomeModule,
     UserModule,
+    SharedModule,
     AppRoutingModule
   ],
   providers: [

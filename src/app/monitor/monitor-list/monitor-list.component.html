@@ -26,7 +26,12 @@
       {{row['heartbeatBreak'] ? "心跳异常" : "正常"}}
     </ng-template>
   </ngx-datatable-column>
-  <ngx-datatable-column name="上次心跳检测时间">
+  <ngx-datatable-column name="注册时间">
+    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+      {{row['registerTime'] | date: 'yyyy-MM-dd HH:mm:ss'}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="最近心跳检测时间">
     <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
       {{row['lastHeartbeatTime'] | date: 'yyyy-MM-dd HH:mm:ss'}}
     </ng-template>
@@ -35,8 +40,6 @@
     <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
       <button 
         (click)="doTaskBreaker($event, row)">{{row['taskVeto'] ? '启用' : '终止'}}</button>
-      <button
-        (click)="doHeartbeat($event, row)">心跳检测</button>
     </ng-template>
   </ngx-datatable-column>
 </ngx-datatable>

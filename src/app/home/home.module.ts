@@ -4,11 +4,13 @@ import { IndexComponent } from './index/index.component';
 import { RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { PipeModule } from '../pipe/pipe.module';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
+    PipeModule,
     BsDropdownModule.forRoot()
   ],
   exports: [

@@ -14,9 +14,9 @@
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-sm-2">心跳地址:</label>
+    <label class="control-label col-sm-2">断路器地址:</label>
     <div class="col-sm-10">
-      <p class="form-control-static">{{taskMonitor.heartbeatUrl}}</p>
+      <p class="form-control-static">{{taskMonitor.breakerUrl}}</p>
     </div>
   </div>
   <div class="form-group">
@@ -30,6 +30,14 @@
     <div class="col-sm-10">
       <p class="form-control-static">
         {{taskMonitor.lastHeartbeatTime | date: 'yyyy-MM-dd HH:mm:ss'}}
+      </p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-4">注册时间:</label>
+    <div class="col-sm-10">
+      <p class="form-control-static">
+        {{taskMonitor.registerTime | date: 'yyyy-MM-dd HH:mm:ss'}}
       </p>
     </div>
   </div>

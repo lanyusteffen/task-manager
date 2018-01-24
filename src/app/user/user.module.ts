@@ -18,7 +18,6 @@ import { AuthService } from '../shared/auth.service';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    SharedModule,
     HttpModule,
     UserRoutingModule,
     TabsModule.forRoot(),

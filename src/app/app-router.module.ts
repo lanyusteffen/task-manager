@@ -5,13 +5,14 @@ import { AuthGuard } from './shared/auth-guard.service';
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(rootRoutes)
+        RouterModule.forRoot(rootRoutes),
     ],
     exports: [
         RouterModule
     ],
     providers: [
         AuthGuard
-    ]
+    ],
+    declarations:[]
 })
 export class AppRoutingModule {}

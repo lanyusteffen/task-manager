@@ -24,7 +24,7 @@
     </ngx-datatable-column>
     <ngx-datatable-column [width]="600" name="日志内容">
       <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-        {{row['body']}}
+        {{row['body'] | simplifyTransform: 200 : false}}
       </ng-template>
     </ngx-datatable-column>
     <ngx-datatable-column name="生成时间">

@@ -11,7 +11,7 @@
                   <ng-template ngFor let-task [ngForOf]="tasks" 
                         let-i="index" [ngForTrackBy]="trackByTask">
                     <li *ngIf="i < 5">
-                        {{task.serviceIdentity}}最后心跳检测成功时间
+                        {{task.serviceIdentity}}最近心跳检测成功时间
                         {{task.lastHeartbeatTime | date: 'yyyy-MM-dd HH:mm:ss'}}
                     </li>
                  </ng-template>
@@ -31,7 +31,7 @@
                   <ng-template ngFor let-log [ngForOf]="logs" let-i="index" 
                     [ngForTrackBy]="traceByLog">
                     <li *ngIf="i < 3">
-                            {{log.body}}
+                            {{log.body | simplifyTransform: 100 : true}}
                     </li>
                  </ng-template>
               </ul>
@@ -50,7 +50,7 @@
                 <ng-template ngFor let-warning [ngForOf]="warnings" let-i="index"
                     [ngForTrackBy]="traceByWarning">
                   <li *ngIf="i < 5">
-                        {{warning.warningReason}}
+                        {{warning.warningReason | simplifyTransform: 100 : true}}
                   </li>
                 </ng-template>
               </ul>
