@@ -31,7 +31,7 @@
                   <ng-template ngFor let-log [ngForOf]="logs" let-i="index" 
                     [ngForTrackBy]="traceByLog">
                     <li *ngIf="i < 3">
-                            {{log.body | simplifyTransform: 100 : true}}
+                            {{log.body | simplifyTransform: 100 : true : '【已省略】'}}
                     </li>
                  </ng-template>
               </ul>
@@ -50,7 +50,7 @@
                 <ng-template ngFor let-warning [ngForOf]="warnings" let-i="index"
                     [ngForTrackBy]="traceByWarning">
                   <li *ngIf="i < 5">
-                        {{warning.warningReason | simplifyTransform: 100 : true}}
+                        {{warning.warningReason | simplifyTransform: 100 : true : '【已省略】'}}
                   </li>
                 </ng-template>
               </ul>
