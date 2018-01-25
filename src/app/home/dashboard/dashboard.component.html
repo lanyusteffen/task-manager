@@ -30,7 +30,7 @@
               <ul>
                   <ng-template ngFor let-log [ngForOf]="logs" let-i="index" 
                     [ngForTrackBy]="traceByLog">
-                    <li *ngIf="i < 3">
+                    <li *ngIf="i < 5">
                             {{log.body | simplifyTransform: 100 : true : '【已省略】'}}
                     </li>
                  </ng-template>
