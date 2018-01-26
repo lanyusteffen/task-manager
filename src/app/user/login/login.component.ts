@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
             this.accessToken = result.entity.accessToken;
             this.refreshToken = result.entity.refreshToken;
             this.accessPersistenceToken = null;
-            this.accessPersistenceToken = null;
+            this.refreshPersistenceToken = null;
           }
           this.router.navigate(['/home']);
         } else {

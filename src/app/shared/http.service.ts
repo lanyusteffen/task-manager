@@ -18,6 +18,21 @@ export class HttpUtilityService {
     accessPersistenceToken: string;
     @LocalStorage()
     refreshPersistenceToken: string;
+    @LocalStorage()
+    isRememberMe: boolean;
+
+    private preHandleResponse(resp: Response) {
+        const newAccessToken = resp.headers.get("RefreshToken");
+        if (newAccessToken) {
+            if (this.isRememberMe) {
+                this.accessPersistenceToken = newAccessToken;
+                this.accessToken = null;
+            } else {
+                this.accessToken = newAccessToken;
+                this.accessPersistenceToken = null;
+            }
+        }
+    }
 
     constructor(private http: Http, private router: Router) { }
 
@@ -26,11 +41,11 @@ export class HttpUtilityService {
         'Accept': '*/*'});
 
         if (withRefreshToken) {
-            headers.append('RefreshToken', this.refreshToken ? this.accessToken
-                : this.accessPersistenceToken);
+            headers.append('RefreshToken', this.isRememberMe ? this.refreshPersistenceToken
+                : this.refreshToken);
         } else {
-            headers.append('Approve', this.accessToken ? this.accessToken
-                : this.accessPersistenceToken);
+            headers.append('Approve', this.isRememberMe ? this.accessPersistenceToken
+                : this.accessToken);
         }
 
         const options = new RequestOptions({headers: headers });
@@ -49,7 +64,10 @@ export class HttpUtilityService {
             withRefreshToken = false): void {
             const options = this.addJsonRequestHeader(withRefreshToken);
             this.http.post(this.getAbsoluteUrl(url), postData, options)
-                .map(r => r.json())
+                .map(r => {
+                    this.preHandleResponse(r);
+                    return r.json();
+                })
                 .subscribe(next, err => {
                     if (err instanceof Response) {
                         const resp = err as Response;
@@ -75,7 +93,10 @@ export class HttpUtilityService {
         withRefreshToken = false): Observable<any> {
         const options = this.addJsonRequestHeader(withRefreshToken);
         return this.http.post(this.getAbsoluteUrl(url), postData, options)
-            .map(r => r.json())
+            .map(r => {
+                this.preHandleResponse(r);
+                return r.json();
+            })
             .catch((err: any) => {
                 if (err instanceof Response) {
                     const resp = err as Response;
@@ -107,7 +128,10 @@ export class HttpUtilityService {
         occurError: (err: any) => void, withRefreshToken = false): void {
             const options = this.addJsonRequestHeader(withRefreshToken);
             this.http.get(this.getAbsoluteUrl(url), options)
-                .map(r => r.json())
+                .map(r => {
+                    this.preHandleResponse(r);
+                    return r.json();
+                })
                 .subscribe(next, err => {
                     if (err instanceof Response) {
                         const resp = err as Response;
@@ -137,7 +161,10 @@ export class HttpUtilityService {
     public getObservable(url: string, withRefreshToken = false): Observable<any> {
         const options = this.addJsonRequestHeader(withRefreshToken);
         return this.http.get(this.getAbsoluteUrl(url), options)
-            .map(r => r.json())
+            .map(r => {
+                this.preHandleResponse(r);
+                return r.json();
+            })
             .catch((err: any) => {
                 if (err instanceof Response) {
                     const resp = err as Response;
