@@ -16,8 +16,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private maxAutoRefreshBlockCount = (<any>settings).MaxAutoRefreshBlockCount;
 
   tasks: any[];
+  taskCount: number;
   warnings: any[];
+  warningCount: number;
   logs: any[];
+  logCount: number;
 
   private timer;
 
@@ -48,17 +51,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private refreshDashboard() {
     this.refreshing = false;
-    this.http.get('/heartbeat/getDashBoard', result => {
-      if (result) {
-        this.tasks = result;
+    this.http.get('/heartbeat/getDashBoard?totalResults=5', result => {
+      if (result && result.elements) {
+        this.tasks = result.elements;
+        this.taskCount = result.totalElements;
       }
-      this.http.get('/log/getDashBoard', result1 => {
-        if (result1) {
-          this.logs = result1;
+      this.http.get('/log/getDashBoard?totalResults=5', result1 => {
+        if (result1 && result1.elements) {
+          this.logs = result1.elements;
+          this.logCount = result1.totalElements;
         }
-        this.http.get('/taskwarning/getDashBoard', result2 => {
-          if (result2) {
-            this.warnings = result2;
+        this.http.get('/taskwarning/getDashBoard?totalResults=5', result2 => {
+          if (result2 && result2.elements) {
+            this.warnings = result2.elements;
+            this.warningCount = result2.totalElements;
           }
           this.refreshing = true;
         });
