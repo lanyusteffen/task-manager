@@ -6,7 +6,7 @@
               <h6>监控管理</h6>
           </div>
           <div class="widget-content">
-              <p>心跳异常任务数量{{tasks?.length}}</p>
+              <p>心跳异常任务数量{{taskCount}}</p>
               <ul>
                   <ng-template ngFor let-task [ngForOf]="tasks" 
                         let-i="index" [ngForTrackBy]="trackByTask">
@@ -26,7 +26,7 @@
               <h6>日志管理</h6>
           </div>
           <div class="widget-content">
-              <p>今日新增日志{{logs?.length}}</p>
+              <p>今日新增日志{{logCount}}</p>
               <ul>
                   <ng-template ngFor let-log [ngForOf]="logs" let-i="index" 
                     [ngForTrackBy]="traceByLog">
@@ -45,7 +45,7 @@
               <h6>预警管理</h6>
           </div>
           <div class="widget-content">
-              <p>今日新增预警{{warnings?.length}}</p>
+              <p>今日新增预警{{warningCount}}</p>
               <ul>
                 <ng-template ngFor let-warning [ngForOf]="warnings" let-i="index"
                     [ngForTrackBy]="traceByWarning">
